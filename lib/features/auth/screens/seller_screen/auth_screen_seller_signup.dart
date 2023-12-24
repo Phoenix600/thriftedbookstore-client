@@ -164,7 +164,7 @@ class _AuthScreenSellerSignupState extends State<AuthScreenSellerSignup> {
                         child: const Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text(
-                            "Don't Have Account",
+                            "Already Have An Account",
                             style: TextStyle(
                               color: primaryColor,
                               decoration: TextDecoration.underline,

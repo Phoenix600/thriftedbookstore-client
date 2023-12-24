@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thriftedbookstore/common/tabs.dart';
+import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/seller/screens/seller_screen.dart';
 import 'package:thriftedbookstore/features/auth/screens/auth_screen_01.dart';
 import 'package:thriftedbookstore/features/auth/services/user_services/auth_user_services.dart';
 import 'package:thriftedbookstore/provider/user_provider.dart';
@@ -23,26 +25,52 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final kColorScheme = ColorScheme.fromSeed(seedColor: primaryColor);
   AuthUserServices authUserServices = AuthUserServices();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    authUserServices.getUserData(context);
+    Future.delayed(Duration.zero).then((value) {
+      authUserServices.getUserData(context);
+    });
+    // authUserServices.getUserData(context);
+    // Future.delayed(Duration.zero).then((value) {
+    //   authUserServices.getUserData(context);
+    // });
+    // // authUserServices.getUserData(context);
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   // Future.delayed(Duration.zero).then((value) {
+  //   //   authUserServices.getUserData(context);
+  //   // });
+  //   authUserServices.getUserData(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Scaffold(
-        body: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? Provider.of<UserProvider>(context).user.type == "seller"
-                ? const TabsScreen()
-                : const TabsScreen()
-            : const AuthScreenUserOrSerller(),
-      ),
+      home: Builder(builder: (BuildContext context) {
+        return Scaffold(
+          key: _scaffoldKey,
+          body: Provider.of<UserProvider>(context).user.token.isNotEmpty
+              ? Provider.of<UserProvider>(context).user.type == "seller"
+                  ? const SellerScreen()
+                  : const TabsScreen()
+              : const AuthScreenUserOrSerller(),
+        );
+      }),
+      theme: ThemeData().copyWith(
+          navigationBarTheme: const NavigationBarThemeData().copyWith(
+        surfaceTintColor: primaryColor,
+        indicatorColor: primaryColor.withOpacity(0.23),
+      )),
     );
   }
 }
