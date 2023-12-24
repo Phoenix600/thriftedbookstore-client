@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/seller/screens/analytics_screen.dart';
 import 'package:thriftedbookstore/features/seller/screens/orders_screen.dart';
 import 'package:thriftedbookstore/features/seller/screens/post_screen.dart';
