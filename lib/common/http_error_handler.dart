@@ -15,6 +15,7 @@ void showSnackBar(BuildContext context, String text) {
   });
 }
 
+
 void httpErrorHandle({
   required http.Response response,
   required BuildContext context,

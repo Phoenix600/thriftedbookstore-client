@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/seller/screens/add_product_screen.dart';
 
-class PostScreen extends StatelessWidget {
+class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
+
+  @override
+  State<PostScreen> createState() => _PostScreenState();
+}
+
+class _PostScreenState extends State<PostScreen> {
+  void navigateToAddProduct() {
+    Navigator.pushNamed(context, AddProduct.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +60,7 @@ class PostScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: navigateToAddProduct,
         backgroundColor: secondaryBackground,
         splashColor: primaryColor.withOpacity(0.13),
         foregroundColor: textColor,
