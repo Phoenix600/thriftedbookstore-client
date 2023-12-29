@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-
 import 'package:thriftedbookstore/common/appbar/comman_appbar.dart';
 import 'package:thriftedbookstore/common/custom_button.dart';
 import 'package:thriftedbookstore/common/custom_text_field.dart';
