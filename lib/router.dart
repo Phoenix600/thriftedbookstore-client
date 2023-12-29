@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/common/tabs.dart';
 import 'package:thriftedbookstore/features/home/screens/home_screen.dart';
+import 'package:thriftedbookstore/features/seller/screens/seller_screen.dart';
 
 Route<MaterialPageRoute> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -16,6 +17,9 @@ Route<MaterialPageRoute> generateRoute(RouteSettings routeSettings) {
           builder: (context) {
             return const TabsScreen();
           });
+    case SellerScreen.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (context) => const SellerScreen());
     default:
       return MaterialPageRoute(
         settings: routeSettings,

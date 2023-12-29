@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void showSnackBar(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(text),
-      duration: const Duration(milliseconds: 200),
-    ),
-  );
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    // ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        duration: const Duration(milliseconds: 2000),
+      ),
+    );
+  });
 }
 
 void httpErrorHandle({
