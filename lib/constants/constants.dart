@@ -25,7 +25,7 @@ class GlobalTheme {
     // Bottom Bar Theme
     navigationBarTheme: const NavigationBarThemeData().copyWith(
       surfaceTintColor: primaryColor,
-      indicatorColor: const Color.fromARGB(255, 196, 248, 181),
+      indicatorColor: const Color.fromARGB(255, 230, 248, 181),
     ),
   );
 }

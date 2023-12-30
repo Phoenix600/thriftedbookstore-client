@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:thriftedbookstore/common/loader.dart';
+import 'package:thriftedbookstore/common/widgets/single_product.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/seller/screens/add_product_screen.dart';
+import 'package:thriftedbookstore/features/seller/services/seller_services.dart';
+import 'package:thriftedbookstore/models/product.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -10,6 +14,36 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  List<Product>? products;
+  final SellerServices sellerServices = SellerServices();
+
+  void fetchAllProducts() async {
+    products = await sellerServices.fetchAllProducts(context);
+    setState(() {});
+  }
+
+  void deleteProduct(Product product, int index) async {
+    sellerServices.deleteProduct(
+        context: context,
+        product: product,
+        onSuccess: () {
+          products!.removeAt(index);
+        });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProducts();
+  }
+
+  @override
+  void didUpdateWidget(covariant PostScreen oldWidget) {
+    fetchAllProducts();
+    super.didUpdateWidget(oldWidget);
+  }
+
   void navigateToAddProduct() {
     Navigator.pushNamed(context, AddProduct.routeName);
   }
@@ -59,6 +93,28 @@ class _PostScreenState extends State<PostScreen> {
           ),
         ),
       ),
+      body: products == null
+          ? const Loader()
+          : Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: GridView.builder(
+                  itemCount: products!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (context, index) {
+                    final productData = products![index];
+                    return Column(
+                      children: [
+                        SingleProduct(
+                          product: productData,
+                          deleteProduct: () {
+                            deleteProduct(productData, index);
+                          },
+                        ),
+                      ],
+                    );
+                  }),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: navigateToAddProduct,
         backgroundColor: secondaryBackground,

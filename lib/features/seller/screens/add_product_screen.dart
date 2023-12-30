@@ -46,7 +46,8 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void sellProducts() {
-    if (_addProductFormKey.currentState!.validate() && images.isEmpty) {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      
       sellerServices.sellProduct(
           context: context,
           name: productNameController.text,
@@ -93,46 +94,45 @@ class _AddProductState extends State<AddProduct> {
                               viewportFraction: 1,
                               height: 200,
                             ))
-                        : const SizedBox(height: 10),
-                    GestureDetector(
-                      onTap: selectImages,
-                      child: DottedBorder(
-                          borderType: BorderType.RRect,
-                          dashPattern: const [10, 4],
-                          strokeCap: StrokeCap.round,
-                          radius: const Radius.circular(10),
-                          child: Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    primaryColor.withOpacity(0.05),
-                                    primaryColor.withOpacity(0.01)
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                        : GestureDetector(
+                            onTap: selectImages,
+                            child: DottedBorder(
+                                borderType: BorderType.RRect,
+                                dashPattern: const [10, 4],
+                                strokeCap: StrokeCap.round,
+                                radius: const Radius.circular(10),
+                                child: Container(
+                                  height: 150,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          primaryColor.withOpacity(0.05),
+                                          primaryColor.withOpacity(0.01)
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      )),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.file_upload,
+                                        color: primaryColor,
+                                        size: 40,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "Select Book Images",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: textColor.withOpacity(0.5)),
+                                      ),
+                                    ],
+                                  ),
                                 )),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.file_upload,
-                                  color: primaryColor,
-                                  size: 40,
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  "Select Book Images",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: textColor.withOpacity(0.5)),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ),
+                          ),
                     const SizedBox(height: 30),
                     CustomTextField(
                         controller: productNameController,
@@ -167,7 +167,9 @@ class _AddProductState extends State<AddProduct> {
                     const SizedBox(height: 10),
                     const SizedBox(height: 10),
                     CustomButton(
-                      onTap: sellProducts,
+                      onTap: () {
+                        sellProducts();
+                      },
                       text: "Sell",
                       color: primaryColor,
                     )
