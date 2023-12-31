@@ -17,6 +17,18 @@ class _PostScreenState extends State<PostScreen> {
   List<Product>? products;
   final SellerServices sellerServices = SellerServices();
 
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProducts();
+  }
+
+  @override
+  void didUpdateWidget(covariant PostScreen oldWidget) {
+    fetchAllProducts();
+    super.didUpdateWidget(oldWidget);
+  }
+
   void fetchAllProducts() async {
     products = await sellerServices.fetchAllProducts(context);
     setState(() {});
@@ -28,20 +40,8 @@ class _PostScreenState extends State<PostScreen> {
         product: product,
         onSuccess: () {
           products!.removeAt(index);
+          setState(() {});
         });
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchAllProducts();
-  }
-
-  @override
-  void didUpdateWidget(covariant PostScreen oldWidget) {
-    fetchAllProducts();
-    super.didUpdateWidget(oldWidget);
   }
 
   void navigateToAddProduct() {
@@ -104,6 +104,7 @@ class _PostScreenState extends State<PostScreen> {
                   itemBuilder: (context, index) {
                     final productData = products![index];
                     return Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SingleProduct(
                           product: productData,

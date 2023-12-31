@@ -6,6 +6,7 @@ import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';
 
 class AuthScreenUserOrSerller extends StatefulWidget {
   const AuthScreenUserOrSerller({super.key});
+  static const String routeName = "/auth-screen";
 
   @override
   State<AuthScreenUserOrSerller> createState() =>

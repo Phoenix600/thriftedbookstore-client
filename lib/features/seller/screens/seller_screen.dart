@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/features/seller/screens/analytics_screen.dart';
 import 'package:thriftedbookstore/features/seller/screens/orders_screen.dart';
 import 'package:thriftedbookstore/features/seller/screens/post_screen.dart';
+import 'package:thriftedbookstore/features/seller/screens/seller_log_screen.dart';
 
 class SellerScreen extends StatefulWidget {
   static const String routeName = "/seller";
@@ -16,8 +17,12 @@ class _SellerScreenState extends State<SellerScreen> {
   List<Widget> screens = const [
     PostScreen(),
     AnalyticsScreen(),
-    OrdersScreen()
+    OrdersScreen(),
+    SellerLogScreen()
   ];
+
+ 
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +44,7 @@ class _SellerScreenState extends State<SellerScreen> {
               icon: Icon(Icons.analytics_outlined), label: "Analytics"),
           NavigationDestination(
               icon: Icon(Icons.all_inbox_outlined), label: "Tracking"),
+          NavigationDestination(icon: Icon(Icons.person), label: "Account")
         ],
       ),
     );
