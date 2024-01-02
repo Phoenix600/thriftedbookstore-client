@@ -17,7 +17,7 @@ class SingleProduct extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       height: 160,
-      width: 180,
+      width: 180, 
       decoration: BoxDecoration(
           color: secondaryBackground, borderRadius: BorderRadius.circular(10)),
       child: Column(

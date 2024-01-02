@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:thriftedbookstore/common/appbar/comman_appbar.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';
+import 'package:thriftedbookstore/features/seller/services/seller_services.dart';
+import 'package:thriftedbookstore/features/seller/widgets/logut_button.dart';
 import 'package:thriftedbookstore/features/seller/widgets/shop_address_widget.dart';
 import 'package:thriftedbookstore/provider/user_provider.dart';
 
@@ -28,49 +28,12 @@ class _SellerLogScreenState extends State<SellerLogScreen> {
         builder: ((context) => const ShopAddressWidget()));
   }
 
-  Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-    if (!serviceEnabled) {
-      Fluttertoast.showToast(msg: "Please Keep Your Location On");
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-
-      if (permission == LocationPermission.denied) {
-        Fluttertoast.showToast(msg: "Location Permission Is Denied");
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      Fluttertoast.showToast(msg: "Permission Is Denied Forever");
-    }
-
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      Placemark place = placemarks[0];
-      setState(() {
-        currentAddress =
-            "${place.subLocality},${place.street},${place.locality}, ${place.postalCode},${place.administrativeArea}, ${place.country}";
-      });
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    final SellerServices sellerServices = SellerServices();
+
+    final address = userProvider.user.address;
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: commonAppBar("Seller", "Account", size),
@@ -160,7 +123,7 @@ class _SellerLogScreenState extends State<SellerLogScreen> {
                     ListTile(
                       leading: Icon(Icons.store,
                           color: primaryColor.withOpacity(0.7)),
-                      title: Text(userProvider.user.address.isEmpty
+                      title: Text(address.isEmpty
                           ? "No Shop Address Provided"
                           : userProvider.user.address),
                       trailing: IconButton(
@@ -175,9 +138,9 @@ class _SellerLogScreenState extends State<SellerLogScreen> {
                   ],
                 ),
               ),
-              Text(currentAddress),
-              ElevatedButton(
-                  onPressed: _determinePosition, child: const Text("Locate Me"))
+              LogoutButton(onPressed: () {
+                sellerServices.logOut(context);
+              }),
             ],
           ),
         ));
