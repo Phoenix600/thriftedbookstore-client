@@ -65,7 +65,7 @@ class AuthUserServices {
   }) async {
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/api/seller/signin'),
+        Uri.parse('$uri/api/signin'),
         body: jsonEncode({
           'email': email,
           'password': password,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/auth/screens/seller_screen/auth_screen_seller_signup.dart';
-import 'package:thriftedbookstore/features/auth/screens/user_screen/auth_screen_user.dart';
+import 'package:thriftedbookstore/features/auth/screens/user_screen/auth_screen_user_signup.dart';
 import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';
 
 class AuthScreenUserOrSerller extends StatefulWidget {
@@ -17,7 +17,7 @@ class _AuthScreenUserOrSerllerState extends State<AuthScreenUserOrSerller> {
   void onPressed(String userType) {
     if (userType == "Reader") {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const AuthScreenUser();
+        return const AuthScreenUserSignup();
       }));
     } else {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
