@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thriftedbookstore/common/appbar/comman_appbar.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
-import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';
 import 'package:thriftedbookstore/features/seller/services/seller_services.dart';
 import 'package:thriftedbookstore/features/seller/widgets/logut_button.dart';
 import 'package:thriftedbookstore/features/seller/widgets/shop_address_widget.dart';

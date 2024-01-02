@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thriftedbookstore/common/http_error_handler.dart';
-// import 'package:thriftedbookstore/common/tabs.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/seller/screens/seller_screen.dart';
 import 'package:thriftedbookstore/models/user.dart';
