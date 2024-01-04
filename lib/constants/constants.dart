@@ -4,14 +4,43 @@ const Color backgroundColor = Color(0xffffffff);
 const Color secondaryBackground = Color(0xfff1f1f1);
 const Color primaryColor = Color(0xff48d861);
 const Color textColor = Color(0xff2a2a2a);
-String uri = 'http://192.168.0.102:3000';
-// String uri = "https://thrifted-server.onrender.com";
+String uri = 'http://192.168.0.103:3000';
+// String uri = 'https://thrifted-server.onrender.com';
 List<String> bookCategories = [
   "Academics",
   "Comic",
   "Fiction",
   "Novel",
   "Collectibles"
+];
+
+String rupees = "₹";
+
+// Category Images
+const List<Map<String, String>> categoryImages = [
+  {'title': "Academics", 'image': "assets/categories/Academics.png"},
+  {'title': "Comic", 'image': "assets/categories/Comic.png"},
+  {'title': "Fiction", 'image': "assets/categories/Fiction.png"},
+  {'title': "Novel", 'image': "assets/categories/Novel.png"},
+  {'title': "Collectibles", 'image': "assets/categories/Collectibles.png"},
+];
+
+class Category {
+  final String title;
+  final Color color;
+  Category({
+    required this.title,
+    required this.color,
+  });
+}
+
+List<Category> categories = [
+  Category(title: "Academics", color: Colors.lightBlue),
+  Category(title: "Comic", color: Colors.orangeAccent),
+  Category(title: "Fiction", color: Colors.deepPurpleAccent),
+  Category(title: "Novel", color: Colors.blueGrey),
+  Category(title: "Collectibles", color: Colors.yellowAccent),
+  Category(title: "All Products", color: primaryColor),
 ];
 
 class GlobalTheme {

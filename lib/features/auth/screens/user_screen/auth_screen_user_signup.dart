@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/common/custom_text_field.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
-import 'package:thriftedbookstore/features/auth/screens/seller_screen/auth_screen_seller_signin.dart';
 import 'package:thriftedbookstore/features/auth/screens/user_screen/auth_screen_user_signin.dart';
 import 'package:thriftedbookstore/features/auth/services/user_services/auth_user_services.dart';
 import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';

@@ -34,7 +34,7 @@ class SingleProductScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SearchField(),
-              // const SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),

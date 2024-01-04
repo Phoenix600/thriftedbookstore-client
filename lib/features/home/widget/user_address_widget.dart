@@ -6,26 +6,26 @@ import 'package:thriftedbookstore/common/custom_text_field.dart';
 import 'package:thriftedbookstore/common/http_error_handler.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/auth/widgets/green_buttom_user.dart';
-import 'package:thriftedbookstore/features/seller/services/seller_services.dart';
+import 'package:thriftedbookstore/features/home/services/user/user_services.dart';
 
-class ShopAddressWidget extends StatefulWidget {
-  const ShopAddressWidget({super.key});
+class UserAddressWidget extends StatefulWidget {
+  const UserAddressWidget({super.key});
 
   @override
-  State<ShopAddressWidget> createState() => _ShopAddressWidgetState();
+  State<UserAddressWidget> createState() => _UserAddressWidgetState();
 }
 
-class _ShopAddressWidgetState extends State<ShopAddressWidget> {
+class _UserAddressWidgetState extends State<UserAddressWidget> {
   final formKey = GlobalKey<FormState>();
+
   final TextEditingController _shopName = TextEditingController();
-  final SellerServices sellerServices = SellerServices();
+  final UserServices userServices = UserServices();
   String currentAddress = "";
 
   void saveAddress() {
     if (formKey.currentState!.validate()) {
       if (_shopName.text.isNotEmpty && currentAddress.isNotEmpty) {
-        sellerServices.saveShopAddress(
-            context: context, address: currentAddress);
+        userServices.saveUserAddress(context: context, address: currentAddress);
       }
       Navigator.pop(context);
     }
@@ -73,14 +73,7 @@ class _ShopAddressWidgetState extends State<ShopAddressWidget> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _shopName.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
@@ -112,7 +105,8 @@ class _ShopAddressWidgetState extends State<ShopAddressWidget> {
                   height: size.height * 0.3,
                   width: double.infinity,
                 ),
-                CustomTextField(controller: _shopName, hintText: "Shop Name"),
+                CustomTextField(
+                    controller: _shopName, hintText: "Home Name or Landmark"),
                 const SizedBox(height: 6),
                 Row(
                   children: [

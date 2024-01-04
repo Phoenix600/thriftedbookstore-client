@@ -24,6 +24,13 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   @override
+  void didChangeDependencies()
+  {
+    super.didChangeDependencies();
+    fetchAllProducts();
+  }
+
+  @override
   void didUpdateWidget(covariant PostScreen oldWidget) {
     fetchAllProducts();
     super.didUpdateWidget(oldWidget);

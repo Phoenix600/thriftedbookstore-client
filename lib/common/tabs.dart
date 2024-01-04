@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/features/home/screens/home_screen.dart';
-import 'package:thriftedbookstore/features/product/screen/single_product_screen.dart';
+import 'package:thriftedbookstore/features/home/screens/user_details_screen.dart';
+import 'package:thriftedbookstore/features/home/widget/categories_widget.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -12,9 +13,9 @@ class TabsScreen extends StatefulWidget {
 
 List<Widget> screens = [
   const HomeScreen(),
-  const SingleProductScreen(),
+  const CategoriesWidget(),
   const Center(child: Text("Cart Screen")),
-  const Center(child: Text("Order Screen")),
+  const UserAddressLogScreen(),
 ];
 
 class _TabsScreenState extends State<TabsScreen> {
@@ -35,7 +36,7 @@ class _TabsScreenState extends State<TabsScreen> {
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home_outlined), label: "Home"),
           NavigationDestination(
-              icon: Icon(Icons.favorite_border_outlined), label: "Search"),
+              icon: Icon(Icons.category_outlined), label: "Category"),
           NavigationDestination(
               icon: Badge(
                 backgroundColor: Colors.green,
@@ -44,7 +45,7 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
               label: "Cart"),
           NavigationDestination(
-              icon: Icon(Icons.inbox_outlined), label: "Order"),
+              icon: Icon(Icons.person_4_outlined), label: "Account"),
         ],
       ),
     );

@@ -3,12 +3,12 @@ import 'package:thriftedbookstore/common/search_field.dart';
 import 'package:thriftedbookstore/common/user_app_bar.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/home/widget/carousel_images.dart';
-import 'package:thriftedbookstore/features/home/widget/categories_widget.dart';
+import 'package:thriftedbookstore/features/home/widget/deal_of_day.dart';
+import 'package:thriftedbookstore/features/home/widget/products_list.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home";
   const HomeScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 15),
               CarouselSliderWidget(),
               const SizedBox(height: 15),
-              const CategoriesWidget()
+              const DealOfTheDay(),
+              const SizedBox(height: 10),
+              const ProductList(),
             ],
           ),
         ),
