@@ -3,6 +3,7 @@ import 'package:thriftedbookstore/common/loader.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/home/services/home_services.dart';
 import 'package:thriftedbookstore/features/home/widget/single_display_product.dart';
+import 'package:thriftedbookstore/features/product_details/screens/product_details_screen.dart';
 import 'package:thriftedbookstore/models/product.dart';
 
 class ProductList extends StatefulWidget {
@@ -26,6 +27,11 @@ class _ProductListState extends State<ProductList> {
     setState(() {});
   }
 
+  void navigateToProductDetailsPage(Product product) {
+    Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+        arguments: product);
+  }
+
   @override
   Widget build(BuildContext context) {
     return products == null
@@ -41,16 +47,15 @@ class _ProductListState extends State<ProductList> {
                   const SizedBox(width: 10),
                   RichText(
                       text: const TextSpan(
-                          text: "Book ",
+                          text: "Books ",
                           style: TextStyle(
                               fontSize: 19,
                               color: primaryColor,
                               fontWeight: FontWeight.w700),
                           children: <TextSpan>[
                         TextSpan(
-                            text: "Of The ",
-                            style: TextStyle(color: textColor)),
-                        TextSpan(text: "Day"),
+                            text: "List", style: TextStyle(color: textColor)),
+                        TextSpan(text: ""),
                       ])),
                 ],
               ),
@@ -60,7 +65,7 @@ class _ProductListState extends State<ProductList> {
                   GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: products!.length % 9,
+                      itemCount: products!.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisSpacing: 7,
@@ -68,7 +73,12 @@ class _ProductListState extends State<ProductList> {
                               crossAxisCount: 2),
                       itemBuilder: (context, index) {
                         final productData = products![index];
-                        return SingleDisplayProduct(productData: productData);
+                        return GestureDetector(
+                            onTap: () {
+                              navigateToProductDetailsPage(products![index]);
+                            },
+                            child:
+                                SingleDisplayProduct(productData: productData));
                       }),
                 ],
               ),

@@ -80,7 +80,7 @@ class _AuthScreenUserState extends State<AuthScreenUserSignin> {
                           color: textColor,
                         )),
                     TextSpan(
-                        text: "Seller \n",
+                        text: "Reader \n",
                         style: TextStyle(
                           fontSize: size.height * 0.030,
                           color: primaryColor,
@@ -149,7 +149,8 @@ class _AuthScreenUserState extends State<AuthScreenUserSignin> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => const AuthScreenUserSignup()));
+                                  builder: (_) =>
+                                      const AuthScreenUserSignup()));
                         },
                         child: const Padding(
                           padding: EdgeInsets.only(top: 10.0),

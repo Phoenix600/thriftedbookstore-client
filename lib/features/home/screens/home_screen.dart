@@ -5,10 +5,20 @@ import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/home/widget/carousel_images.dart';
 import 'package:thriftedbookstore/features/home/widget/deal_of_day.dart';
 import 'package:thriftedbookstore/features/home/widget/products_list.dart';
+import 'package:thriftedbookstore/features/search/screen/search_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
-              SearchField(),
+              const SearchField(),
               const SizedBox(height: 15),
               CarouselSliderWidget(),
               const SizedBox(height: 15),

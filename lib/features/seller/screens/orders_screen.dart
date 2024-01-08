@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:thriftedbookstore/common/loader.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/home/widget/single_product_ord.dart';
+import 'package:thriftedbookstore/features/order_details/screen/orders_details_screen.dart';
+import 'package:thriftedbookstore/features/seller/services/seller_services.dart';
+import 'package:thriftedbookstore/models/order.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
+
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  final SellerServices sellerServices = SellerServices();
+  List<Order>? orders;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchOrders();
+  }
+
+  void fetchOrders() async {
+    orders = await sellerServices.fetchAllOrders(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +72,31 @@ class OrdersScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(
-        child: Text("Orders Screen"),
-      ),
+      body: orders == null
+          ? const Loader()
+          : GridView.builder(
+              itemCount: orders!.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
+              itemBuilder: (context, index) {
+                final orderData = orders![index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      OrderDetailScreen.routeName,
+                      arguments: orderData,
+                    );
+                  },
+                  child: SizedBox(
+                    height: 140,
+                    child: SingleProductOrd(
+                      image: orderData.products[0].images[0],
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }

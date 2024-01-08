@@ -83,29 +83,25 @@ void main(List<String> args) {
       ChangeNotifierProvider(create: (_) => UserProvider()),
     ],
     builder: (context, child) => MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: GlobalTheme.theme,
       onGenerateRoute: (settings) => generateRoute(settings),
       home: const MyApp(),
     ),
   ));
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   final AuthUserServices authUserServices = AuthUserServices();
-
   @override
   void initState() {
     authUserServices.getUserData(context);
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

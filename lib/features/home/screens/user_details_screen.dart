@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thriftedbookstore/common/appbar/comman_appbar.dart';
+import 'package:thriftedbookstore/common/loader.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/home/services/user/user_services.dart';
+import 'package:thriftedbookstore/features/home/widget/single_product_ord.dart';
 import 'package:thriftedbookstore/features/home/widget/user_address_widget.dart';
+import 'package:thriftedbookstore/features/order_details/screen/orders_details_screen.dart';
 import 'package:thriftedbookstore/features/seller/widgets/logut_button.dart';
+import 'package:thriftedbookstore/models/order.dart';
 import 'package:thriftedbookstore/provider/user_provider.dart';
 
 class UserAddressLogScreen extends StatefulWidget {
@@ -16,7 +20,8 @@ class UserAddressLogScreen extends StatefulWidget {
 
 class _UserAddressLogScreenState extends State<UserAddressLogScreen> {
   String currentAddress = "My Address";
-
+  final UserServices userServices = UserServices();
+  List<Order>? orders;
   void showModalAddressScreen() {
     showModalBottomSheet(
         backgroundColor: backgroundColor,
@@ -28,9 +33,19 @@ class _UserAddressLogScreenState extends State<UserAddressLogScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    fetchMyOrders();
+  }
+
+  void fetchMyOrders() async {
+    orders = await userServices.fetchMyOrders(context: context);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
-    final UserServices userServices = UserServices();
 
     final address = userProvider.user.address;
     final Size size = MediaQuery.of(context).size;
@@ -137,9 +152,72 @@ class _UserAddressLogScreenState extends State<UserAddressLogScreen> {
                   ],
                 ),
               ),
-              LogoutButton(onPressed: () {
-                userServices.logOut(context);
-              }),
+              orders == null
+                  ? const Loader()
+                  : Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                left: 15,
+                              ),
+                              child: const Text(
+                                'Your Orders',
+                                style: TextStyle(
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                right: 15,
+                              ),
+                              child: const Text(
+                                'See all',
+                                style: TextStyle(
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // display orders
+                        Container(
+                          height: 170,
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            top: 20,
+                            right: 0,
+                          ),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: orders!.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      OrderDetailScreen.routeName,
+                                      arguments: orders![index],
+                                    );
+                                  },
+                                  child: SingleProductOrd(
+                                      image: orders![index]
+                                          .products[0]
+                                          .images[0]));
+                              // child: Text(orders![index].products.toString()),
+                              // );
+                            },
+                          ),
+                        ),
+                        LogoutButton(onPressed: () {
+                          userServices.logOut(context);
+                        }),
+                      ],
+                    )
             ],
           ),
         ));

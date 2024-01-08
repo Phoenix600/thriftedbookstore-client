@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/search/screen/search_screen.dart';
 
-class SearchField extends StatelessWidget {
-  SearchField({super.key});
+class SearchField extends StatefulWidget {
+  const SearchField({super.key});
 
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
   final TextEditingController _controller = TextEditingController();
+
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +25,18 @@ class SearchField extends StatelessWidget {
         color: secondaryBackground,
         borderRadius: BorderRadius.circular(14),
       ),
-      child: TextField(
+      child: TextFormField(
+        onFieldSubmitted: navigateToSearchScreen,
         controller: _controller,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             hintText: "Search Thrifted Books",
             border: InputBorder.none,
-            suffixIcon: Icon(
+            suffixIcon: IconButton(
+              onPressed: () {
+                navigateToSearchScreen(_controller.text);
+              },
               color: textColor,
-              Icons.search,
+              icon: const Icon(Icons.search),
             )),
       ),
     );

@@ -4,7 +4,7 @@ const Color backgroundColor = Color(0xffffffff);
 const Color secondaryBackground = Color(0xfff1f1f1);
 const Color primaryColor = Color(0xff48d861);
 const Color textColor = Color(0xff2a2a2a);
-String uri = 'http://192.168.0.103:3000';
+String uri = 'http://192.168.0.101:3000';
 // String uri = 'https://thrifted-server.onrender.com';
 List<String> bookCategories = [
   "Academics",
@@ -40,7 +40,6 @@ List<Category> categories = [
   Category(title: "Fiction", color: Colors.deepPurpleAccent),
   Category(title: "Novel", color: Colors.blueGrey),
   Category(title: "Collectibles", color: Colors.yellowAccent),
-  Category(title: "All Products", color: primaryColor),
 ];
 
 class GlobalTheme {

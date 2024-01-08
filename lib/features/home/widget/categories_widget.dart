@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/common/appbar/comman_appbar.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
+import 'package:thriftedbookstore/features/home/screens/category_deals_screen.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({super.key});
@@ -10,6 +11,11 @@ class CategoriesWidget extends StatefulWidget {
 }
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
+  void navigateToCategoryPage(BuildContext context, String category) {
+    Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+        arguments: category);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,16 +30,21 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, mainAxisSpacing: 7, crossAxisSpacing: 7),
             itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    navigateToCategoryPage(context, categories[index].title);
+                  },
                   child: Container(
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(colors: [
-                          categories[index].color.withOpacity(0.1),
-                          categories[index].color.withOpacity(0.01)
-                        ])),
+                        gradient: LinearGradient(
+                            colors: [
+                              categories[index].color.withOpacity(0.2),
+                              categories[index].color.withOpacity(0.1)
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

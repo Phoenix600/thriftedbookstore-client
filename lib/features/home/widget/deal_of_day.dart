@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thriftedbookstore/constants/constants.dart';
 import 'package:thriftedbookstore/features/home/services/home_services.dart';
+import 'package:thriftedbookstore/features/product_details/screens/product_details_screen.dart';
 import 'package:thriftedbookstore/models/product.dart';
 
 class DealOfTheDay extends StatefulWidget {
@@ -22,6 +23,11 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
     setState(() {});
   }
 
+  void navigateToProductDetailsPage() {
+    Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+        arguments: product);
+  }
+
   Product? product;
   final HomeServices homeServices = HomeServices();
   @override
@@ -40,7 +46,7 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
         : product!.name.isEmpty
             ? const SizedBox()
             : GestureDetector(
-                onTap: () {},
+                onTap: navigateToProductDetailsPage,
                 child: Column(
                   children: [
                     Container(

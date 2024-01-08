@@ -15,13 +15,17 @@ class SingleDisplayProduct extends StatelessWidget {
           color: secondaryBackground, borderRadius: BorderRadius.circular(10)),
       child: Column(
         // mainAxisSize: MainAxisSize.xmin,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.network(
             productData.images[0],
             height: 100,
             fit: BoxFit.fitHeight,
           ),
-          Text(productData.name),
+          Text(
+            productData.name,
+            overflow: TextOverflow.ellipsis,
+          ),
           Expanded(child: Text(productData.price.toString()))
         ],
       ),
